@@ -9,6 +9,7 @@ import ResulApi from './componentes/ResulApi';
 // Exporto mi funcion de API Covid19
 const datosConfirmadosCovid = require("./library/apiCovid19");
 
+
 class App extends React.Component {
 
   constructor(props) {
@@ -25,7 +26,7 @@ class App extends React.Component {
     this.handlerConsumoApi = this.handlerConsumoApi.bind(this)
   }
 
-  /* Consumir API */
+  /* Metodo para consumir la API */
   handlerConsumoApi(flag, pais) {
 
     if (flag) {
@@ -41,19 +42,22 @@ class App extends React.Component {
           fecha: casosConfirmadosHoy.Date.substring(0,10)
         })
 
-      }).catch( error => {
+      }).catch( () => {
           alert('El país que ingreso no es correcto')
       })
       
     }else{
+
       this.setState({
         flag: false
       })
+
     }
 
   }
 
   render() {
+
     return (
       <div className="App">
 
@@ -77,14 +81,14 @@ class App extends React.Component {
               casos = {this.state.casos}
               fecha = {this.state.fecha} 
             />
-
           </div>
-
+          
         </main>
 
       </div>
     )
   }
+
 }
 
 /* Exporto la clase "principal" */

@@ -1,7 +1,5 @@
 import React from 'react';
 
-// Exporto mi funcion de API Covid19
-const datosConfirmadosCovid = require("../library/apiCovid19");
 
 class FormApi extends React.Component {
 
@@ -60,16 +58,17 @@ class FormApi extends React.Component {
     render() {
       return (      
         <div className={this.props.clasesCSS} >
+
           <div className="form-group">
             <label className="inputPais" id="labelBuscar">Buscar estadisticas</label>
             <input type="text" id="inputPais" className="form-control" placeholder="Ingrese el nombre un pais" onKeyUp={this.handlerVerificadorInput} />
           </div>
   
           <button type="button" onClick={this.handlerBuscador} className="btn btn-primary btn-block">Buscar</button>
+          
         </div>
       )
     }
-  
   }
 
 /* Exporto este componente */
