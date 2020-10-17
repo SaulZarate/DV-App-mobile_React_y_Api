@@ -20,9 +20,9 @@ class ResulApi extends React.Component {
 
                     <tbody>
                         <tr>
-                            <td> { this.props.flag ? this.props.pais : " --- "} </td>
-                            <td> { this.props.flag ? this.props.casos : " --- " } </td>
-                            <td> { this.props.flag ? this.props.fecha : " --- " } </td>
+                            <td> { this.props.pais.length !== 0 ? this.props.pais : " --- "} </td>
+                            <td> { this.props.pais.length !== 0 ? this.props.casos : " --- " } </td>
+                            <td> { this.props.pais.length !== 0 ? this.props.fecha : " --- " } </td>
                         </tr>
                     </tbody>
                 </table>

@@ -16,7 +16,6 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      flag: false,
       pais: "",
       casos: "",
       fecha: ""
@@ -27,33 +26,23 @@ class App extends React.Component {
   }
 
   /* Metodo para consumir la API */
-  handlerConsumoApi(flag, pais) {
+  handlerConsumoApi(pais) {
 
-    if (flag) {
+    datosConfirmadosCovid(pais).then(confirmados => {
 
-      datosConfirmadosCovid(pais).then(confirmados => {
-
-        let casosConfirmadosHoy = confirmados[confirmados.length -1];
-        
-        this.setState({
-          flag: true,
-          pais: pais,
-          casos: casosConfirmadosHoy.Cases,
-          fecha: casosConfirmadosHoy.Date.substring(0,10)
-        })
-
-      }).catch( () => {
-          alert('El país que ingreso no es correcto')
-      })
-      
-    }else{
+      let casosConfirmadosHoy = confirmados[confirmados.length -1];
 
       this.setState({
-        flag: false
+        pais:  ( pais === 'usa' ? 'Estados Unidos': pais.charAt(0).toUpperCase() + pais.slice(1) ),
+        casos: casosConfirmadosHoy.Cases,
+        fecha: casosConfirmadosHoy.Date.substring(0,10)
       })
 
-    }
-
+    }).catch( (error) => {
+      alert('Error con la Api al buscar el país')
+      console.log("Error: " + error.message)
+    })
+    
   }
 
   render() {
@@ -76,7 +65,6 @@ class App extends React.Component {
 
             {/* Tabla de resultados */}
             <ResulApi clasesCSS="col-8 card card-body" 
-              flag = {this.state.flag}
               pais = {this.state.pais}
               casos = {this.state.casos}
               fecha = {this.state.fecha} 

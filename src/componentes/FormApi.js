@@ -5,70 +5,55 @@ class FormApi extends React.Component {
 
     constructor(props){
       super(props)
-  
-      // Estado del componente
       this.state = {
-        flag: false
+        pais: 'argentina'
       }
   
       // Este seteo es necesario para poder usar el this.state en las funciones
       this.handlerBuscador = this.handlerBuscador.bind(this)
-      this.handlerVerificadorInput = this.handlerVerificadorInput.bind(this)
+      this.HandlerUpdatePais = this.HandlerUpdatePais.bind(this)
       
     }
   
     // Metodo manejador del evento
     handlerBuscador(){
-    
-        if( this.state.flag ){
-            
-            let funcionPadre = this.props.handlerConsumoApi
-            
-            funcionPadre(this.state.flag, this.state.pais)
-
-        }else{
-            alert('El campo no puede estar vacio, ingrese un pais !!!')
-        }
-
+      this.props.handlerConsumoApi( this.state.pais )
     }
   
-    // Metodo verificador del texto
-    handlerVerificadorInput(e){
-  
-      // target accede al elemento que disparo el evento -> input
-      let inputTextPais = e.target.value.trim()
-  
-      if( inputTextPais.length > 0 ){
-        
-        this.setState({
-          pais: inputTextPais,
-          flag : true
-        })
-  
-      }else{
-        this.setState({
-          flag : false,
-          pais: ""
-        })
-         
-      }
-      
+    // Metodo para setear el pais del State
+    HandlerUpdatePais(e){
+      // e => elemento que "causo" el evento :::: e.target => accede al elemento
+      let pais = e.target.value
+      this.setState({
+        pais: pais
+      })
     }
   
     render() {
       return (      
         <div className={this.props.clasesCSS} >
 
-          <div className="form-group">
-            <label className="inputPais" id="labelBuscar">Buscar estadisticas</label>
-            <input type="text" id="inputPais" className="form-control" placeholder="Ingrese el nombre un pais" onKeyUp={this.handlerVerificadorInput} />
+          <div className="form-group mb-0">
+            {/* -------- LABEL -------- */}
+            <label className="inputPais" id="labelBuscar">Selecciones un país</label>
+            <div className="form-group">
+            {/* -------- SELECT -------- */}
+              <select className="custom-select" name="pais" id="pais" onChange={this.HandlerUpdatePais}>
+                <option value="argentina">Argentina</option>
+                <option value="uruguay">Uruguay</option>
+                <option value="brazil">Brazil</option>
+                <option value="chile">Chile</option>
+                <option value="mexico">Mexico</option>
+                <option value="usa">Estados Unidos</option>
+                <option value="canada">Canada</option>
+              </select>
+            </div>
           </div>
   
           <button type="button" onClick={this.handlerBuscador} className="btn btn-primary btn-block">Buscar</button>
           
         </div>
-      )
-    }
+      )}
   }
 
 /* Exporto este componente */
